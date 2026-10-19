@@ -4,7 +4,9 @@
   "description": "Gerenciador de tarefas de um time de desenvolvimento.",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/server.ts"
+    "dev": "tsx watch --env-file .env src/server.ts",
+    "build": "tsup src --out-dir build",
+    "start": "node build/server.js"
   },
   "author": "Vinícius Leandro",
   "license": "ISC",
@@ -24,6 +26,7 @@
     "@types/node": "^26.6.5",
     "eslint": "^10.13.0",
     "prisma": "^7.10.1",
+    "tsup": "^9.0.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
