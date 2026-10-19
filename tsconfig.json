@@ -7,13 +7,13 @@
         "paths": {
             "@/*": ["./src/*"],
         },
-        "types": [""],
+        "types": ["node"],
 
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
 
         "strict": true,
 
-        "skipLibCheck": true
+        "skipLibCheck": true,
     },
 }
