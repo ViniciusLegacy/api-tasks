@@ -80,7 +80,7 @@ model Task {
   id          String  @id @default(uuid())
   title       String
   description String?
-  assignedTo  String  @map("assigned_to")
+  assignedTo  String? @map("assigned_to")
   teamId      String  @map("team_id")
 
   status   TaskStatus   @default(pending)
