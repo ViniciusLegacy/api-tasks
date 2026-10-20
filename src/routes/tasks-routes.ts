@@ -10,5 +10,6 @@ const tasksController = new TasksController()
 tasksRoutes.use(ensureAuthenticated)
 tasksRoutes.post("/", tasksController.create)
 tasksRoutes.get("/", tasksController.index)
+tasksRoutes.put("/:id", tasksController.update)
 
 export { tasksRoutes }
