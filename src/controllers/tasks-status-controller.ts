@@ -4,8 +4,27 @@ import { z } from "zod"
 
 class TasksStatusController {
     async update(request: Request, response: Response) {
+        const paramsSchema = z.object({
+            id: z.uuid(),
+        })
 
-        return response.json()
+        const bodySchema = z.object({
+            status: z.enum(["pending", "in_progress", "completed"]),
+        })
+
+        const { id } = paramsSchema.parse(request.params)
+        const { status } = bodySchema.parse(request.body)
+
+        await prisma.task.update({
+            data: {
+                status,
+            },
+            where: {
+                id,
+            },
+        })
+
+        return response.json("Tasks status updated sucessfull")
     }
 }
 
