@@ -35,6 +35,22 @@ class TeamsMembersController {
 
         return response.status(201).json(teamMember)
     }
+
+    async delete(request: Request, response: Response) {
+        const paramsSchema = z.object({
+            id: z.uuid(),
+        })
+
+        const { id } = paramsSchema.parse(request.params)
+
+        await prisma.teamMember.delete({
+            where: {
+                id,
+            }
+        })
+
+        return response.json({ message: "User removed successfull" })
+    }
 }
 
 export { TeamsMembersController }
