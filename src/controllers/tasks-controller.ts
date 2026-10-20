@@ -60,6 +60,22 @@ class TasksController {
 
         return response.json({ message: "Task updated successfull" })
     }
+
+    async delete(request: Request, response: Response) {
+        const paramsSchema = z.object({
+            id: z.uuid(),
+        })
+
+        const { id } = paramsSchema.parse(request.params)
+
+        await prisma.task.delete({
+            where: {
+                id,
+            },
+        })
+
+        return response.json({ message: "Task was deleted!" })
+    }
 }
 
 export { TasksController }
