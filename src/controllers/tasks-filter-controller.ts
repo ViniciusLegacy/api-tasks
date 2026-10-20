@@ -14,6 +14,7 @@ class TasksFilterController {
         const tasks = await prisma.task.findMany({
             where: {
                 status,
+                assignedTo: request.user?.role === "admin" ? undefined : request.user?.id,
             },
         })
 
@@ -30,6 +31,7 @@ class TasksFilterController {
         const tasks = await prisma.task.findMany({
             where: {
                 priority,
+                assignedTo: request.user?.role === "admin" ? undefined : request.user?.id,
             }
         })
 

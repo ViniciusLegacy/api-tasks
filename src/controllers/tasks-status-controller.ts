@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { prisma } from "@/database/prisma"
+import { AppError } from "@/utils/AppError"
 import { z } from "zod"
 
 class TasksStatusController {
@@ -14,6 +15,16 @@ class TasksStatusController {
 
         const { id } = paramsSchema.parse(request.params)
         const { status } = bodySchema.parse(request.body)
+
+        const task = await prisma.task.findUnique({ where: { id } })
+
+        if(!task){
+            throw new AppError("Task not found", 404)
+        }
+
+        if(request.user?.role !== "admin" && task.assignedTo !== request.user?.id) {
+            throw new AppError("You can only manage your own tasks", 403)
+        }
 
         await prisma.task.update({
             data: {

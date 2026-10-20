@@ -20,6 +20,7 @@ class TasksController {
                 title,
                 description,
                 priority,
+                assignedTo: request.user?.id,
                 teamId: team_id,
             },
         })
@@ -28,7 +29,9 @@ class TasksController {
     }
 
     async index(request: Request, response: Response) {
-        const tasks = await prisma.task.findMany({})
+        const tasks = await prisma.task.findMany({
+            where: request.user?.role === "admin" ? {} : { assignedTo: request.user?.id },
+        })
 
         return response.json(tasks)
     }
@@ -46,6 +49,16 @@ class TasksController {
 
         const { id } = paramsSchema.parse(request.params)
         const { title, description, priority } = bodySchema.parse(request.body)
+
+        const task = await prisma.task.findUnique({ where: { id } })
+
+        if(!task){
+            throw new AppError("Task not found", 404)
+        }
+
+        if(request.user?.role !== "admin" && task.assignedTo !== request.user?.id) {
+            throw new AppError("You can only manage your own tasks", 403)
+        }
 
         await prisma.task.update({
             data: {
@@ -67,6 +80,16 @@ class TasksController {
         })
 
         const { id } = paramsSchema.parse(request.params)
+
+        const task = await prisma.task.findUnique({ where: { id } })
+
+        if(!task){
+            throw new AppError("Task not found", 404)
+        }
+
+        if(request.user?.role !== "admin" && task.assignedTo !== request.user?.id) {
+            throw new AppError("You can only manage your own tasks", 403)
+        }
 
         await prisma.task.delete({
             where: {
