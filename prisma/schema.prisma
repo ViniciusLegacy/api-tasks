@@ -86,7 +86,7 @@ model Task {
   status   TaskStatus   @default(pending)
   priority TaskPriority @default(medium)
 
-  users User? @relation(fields: [assignedTo], references: [id])
+  users User? @relation(fields: [assignedTo], references: [id], onDelete: SetNull)
   teams Team  @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
   history TaskHistory[]
