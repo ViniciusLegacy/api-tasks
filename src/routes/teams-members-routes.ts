@@ -11,5 +11,6 @@ const teamsMembersController = new TeamsMembersController()
 teamsMembersRoutes.use(ensureAuthenticated)
 teamsMembersRoutes.post("/:team_id/add", verifyUserAuthorization(["admin"]), teamsMembersController.create)
 teamsMembersRoutes.delete("/:id/remove", verifyUserAuthorization(["admin"]), teamsMembersController.delete)
+teamsMembersRoutes.get("/:team_id/show", teamsMembersController.index)
 
 export { teamsMembersRoutes }

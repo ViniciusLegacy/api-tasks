@@ -51,6 +51,26 @@ class TeamsMembersController {
 
         return response.json({ message: "User removed successfull" })
     }
+
+    async index(request: Request, response: Response) {
+        const paramsSchema = z.object({
+            team_id: z.uuid(),
+        })
+
+        const { team_id } = paramsSchema.parse(request.params)
+        
+        const teamsMembers = await prisma.teamMember.findMany({
+            where: {
+                teamId: team_id,
+            },
+            include: {
+                team: { select: { name: true } },
+                user: { select: { name: true, email: true } }
+            }
+        })
+
+        return response.json(teamsMembers)
+    }
 }
 
 export { TeamsMembersController }
