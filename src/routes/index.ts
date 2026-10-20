@@ -5,6 +5,7 @@ import { sessionsRoutes } from "./sessions-routes"
 import { teamsRoutes } from "./teams-routes"
 import { teamsMembersRoutes } from "./teams-members-routes"
 import { tasksRoutes } from "./tasks-routes"
+import { tasksFilterRoutes } from "./tasks-filter-routes"
 
 const routes = Router()
 
@@ -13,5 +14,6 @@ routes.use("/sessions", sessionsRoutes)
 routes.use("/teams", teamsRoutes)
 routes.use("/members", teamsMembersRoutes)
 routes.use("/tasks", tasksRoutes)
+routes.use("/tasks-filter", tasksFilterRoutes)
 
 export { routes }
