@@ -35,6 +35,16 @@ class TasksStatusController {
             },
         })
 
+        await prisma.taskHistory.create({
+            data: {
+                taskId: id,
+                changedBy: request.user.id,
+                oldStatus: task.status,
+                newStatus: status,
+
+            }
+        })
+
         return response.json("Tasks status updated sucessfull")
     }
 }

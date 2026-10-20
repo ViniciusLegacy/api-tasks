@@ -9,6 +9,6 @@ const tasksHistoryRoutes = Router()
 const tasksHistoryController = new TasksHistoryController()
 
 tasksHistoryRoutes.use(ensureAuthenticated, verifyUserAuthorization(["admin", "member"]))
-tasksHistoryRoutes.post("/", tasksHistoryController.create)
+tasksHistoryRoutes.get("/:id", tasksHistoryController.index)
 
 export { tasksHistoryRoutes }

@@ -4,9 +4,20 @@ import { AppError } from "@/utils/AppError"
 import { z } from "zod"
 
 class TasksHistoryController {
-    async create(request: Request, response: Response) {
+    async index(request: Request, response: Response) {
+        const paramsSchema = z.object({
+            id: z.uuid(),
+        })
 
-        return response.json()
+        const { id } = paramsSchema.parse(request.params)
+
+        const taskHistory = await prisma.taskHistory.findMany({
+            where: {
+                taskId: id,
+            },
+        })
+
+        return response.json(taskHistory)
     }
 }
 
