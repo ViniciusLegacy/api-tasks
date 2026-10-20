@@ -8,7 +8,8 @@ import { verifyUserAuthorization } from "@/middlewares/verifyUserAuthorization"
 const teamsRoutes = Router()
 const teamsController = new TeamsController()
 
-teamsRoutes.use(ensureAuthenticated)
-teamsRoutes.post("/", verifyUserAuthorization(["admin"]), teamsController.create)
+teamsRoutes.use(ensureAuthenticated, verifyUserAuthorization(["admin"]))
+teamsRoutes.post("/", teamsController.create)
+teamsRoutes.get("/", teamsController.index)
 
 export { teamsRoutes }

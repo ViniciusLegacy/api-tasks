@@ -27,6 +27,12 @@ class TeamsController {
 
         return response.status(201).json(team)
     }
+
+    async index(request: Request, response: Response) {
+        const teams = await prisma.team.findMany({})
+
+        return response.json(teams)
+    }
 }
 
 export { TeamsController }
