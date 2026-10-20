@@ -7,6 +7,7 @@ import { teamsMembersRoutes } from "./teams-members-routes"
 import { tasksRoutes } from "./tasks-routes"
 import { tasksFilterRoutes } from "./tasks-filter-routes"
 import { tasksAssignedToRoutes } from "./tasks-asigned-to-routes"
+import { tasksStatusRoutes } from "./tasks-status-routes"
 
 const routes = Router()
 
@@ -17,5 +18,6 @@ routes.use("/members", teamsMembersRoutes)
 routes.use("/tasks", tasksRoutes)
 routes.use("/tasks-filter", tasksFilterRoutes)
 routes.use("/tasks-assigned-to", tasksAssignedToRoutes)
+routes.use("/tasks-status", tasksStatusRoutes)
 
 export { routes }
