@@ -40,7 +40,7 @@ class TeamsController {
         })
 
         const bodySchema = z.object({
-            name: z.string(),
+            name: z.string().min(3),
             description: z.string()
         })
 
