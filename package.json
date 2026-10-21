@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --env-file .env src/server.ts",
+    "test:dev": "npx jest --watchAll --runInBand",
     "build": "tsup src --out-dir build",
     "start": "node build/server.js"
   },
