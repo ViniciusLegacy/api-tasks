@@ -7,7 +7,7 @@ describe("SessionsController", () => {
     let user_id: string
 
     afterAll(async () => {
-        
+        await prisma.user.delete({ where: { id: user_id } })
     })
 
     it("it should authenticated and get access token", async () => {
