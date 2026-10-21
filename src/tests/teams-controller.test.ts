@@ -47,7 +47,7 @@ describe("TeamsController", () => {
         expect(team.body.name).toBe("Time de teste")
     })
 
-    it("it should fail to create a new team because it lacks permission", async () => {
+    it("should fail to create a new team because it lacks permission", async () => {
         const userFail = await request(app).post("/users").send({
             name: "Auth Test User Fail",
             email: "auth_fail_testuser@example.com",
@@ -72,7 +72,7 @@ describe("TeamsController", () => {
         expect(team.status).toBe(401)
     })
 
-    it("it should fail to create a new team because the token was not sent", async () => {
+    it("should fail to create a new team because the token was not sent", async () => {
         await prisma.user.update({
             where: { id: user_id  },
             data: { role: "admin" }
@@ -110,7 +110,7 @@ describe("TeamsController", () => {
         expect(teamUpdated.status).toBe(200)
     })
 
-    it("it should not update because the name is not in the correct format", async () => {
+    it("should not update because the name is not in the correct format", async () => {
         const session = await request(app).post("/sessions").send({
             email: "auth_testuser@example.com",
             password: "password123"
